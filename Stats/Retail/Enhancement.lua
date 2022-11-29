@@ -29,12 +29,8 @@ function AddonTable.FunctionList.CritChance(HUD, data, options, ...)
 	table.sort(critTable)
 	totalCrit = critTable[#critTable]
 
-	if AddonTable.Band(EB, Enhanced) then
-		enhancedStat = totalCrit
-	end
-	if  AddonTable.Band(EB, Base) then
-		baseStat = totalCrit
-	end
+	if AddonTable.Band(EB, Enhanced) then enhancedStat = totalCrit end
+	if AddonTable.Band(EB, Base) then baseStat = totalCrit end
 	
 	HUD:UpdateText(data, format(statFormat, enhancedStat and enhancedStat or baseStat, baseStat))
 end
@@ -46,12 +42,8 @@ function AddonTable.FunctionList.Haste(HUD, data, options, ...)
 	local statFormat = Double_Percent_Format[EB]	
 	local haste = GetHaste()
 
-	if AddonTable.Band(EB, Enhanced) then
-		enhancedStat = haste
-	end
-	if  AddonTable.Band(EB, Base) then
-		baseStat = haste
-	end
+	if AddonTable.Band(EB, Enhanced) then enhancedStat = haste end
+	if AddonTable.Band(EB, Base) then baseStat = haste end
 	
 	HUD:UpdateText(data, format(statFormat, enhancedStat and enhancedStat or baseStat, baseStat))
 end
@@ -63,12 +55,8 @@ function AddonTable.FunctionList.Mastery(HUD, data, options, ...)
 	local statFormat = Double_Percent_Format[EB]	
 	local mastery = GetMasteryEffect()
 
-	if AddonTable.Band(EB, Enhanced) then
-		enhancedStat = mastery
-	end
-	if  AddonTable.Band(EB, Base) then
-		baseStat = mastery
-	end
+	if AddonTable.Band(EB, Enhanced) then enhancedStat = mastery end
+	if AddonTable.Band(EB, Base) then baseStat = mastery end
 	
 	HUD:UpdateText(data, format(statFormat, enhancedStat and enhancedStat or baseStat, baseStat))	
 end
@@ -81,12 +69,8 @@ function AddonTable.FunctionList.Versatility(HUD, data, options, ...)
     local verDamage = GetVersatilityBonus(29) + GetCombatRatingBonus(29)
 	local verMitigate = GetVersatilityBonus(31) + GetCombatRatingBonus(31)
 
-	if AddonTable.Band(EB, Damage) then
-		enhancedStat = verDamage
-	end
-	if  AddonTable.Band(EB, DamageTaken) then
-		baseStat = verMitigate
-	end
+	if AddonTable.Band(EB, Damage) then enhancedStat = verDamage end
+	if AddonTable.Band(EB, DamageTaken) then baseStat = verMitigate end
 	
 	HUD:UpdateText(data, format(statFormat, enhancedStat and enhancedStat or baseStat, baseStat))	
 end
@@ -98,12 +82,8 @@ function AddonTable.FunctionList.Avoidance(HUD, data, options, ...)
 	local statFormat = Double_Percent_Format[EB]	
 	local avoidance = GetAvoidance()
 	
-	if AddonTable.Band(EB, Enhanced) then
-		enhancedStat = avoidance
-	end
-	if  AddonTable.Band(EB, Base) then
-		baseStat = avoidance
-	end
+	if AddonTable.Band(EB, Enhanced) then enhancedStat = avoidance end
+	if AddonTable.Band(EB, Base) then baseStat = avoidance end
 	
 	HUD:UpdateText(data, format(statFormat, enhancedStat and enhancedStat or baseStat, baseStat))
 end
@@ -115,12 +95,8 @@ function AddonTable.FunctionList.Leech(HUD, data, options, ...)
 	local statFormat = Double_Percent_Format[EB]	
 	local leech = GetLifesteal()
 	
-	if AddonTable.Band(EB, Enhanced) then
-		enhancedStat = leech
-	end
-	if  AddonTable.Band(EB, Base) then
-		baseStat = leech
-	end
+	if AddonTable.Band(EB, Enhanced) then enhancedStat = leech end
+	if AddonTable.Band(EB, Base) then baseStat = leech end
 	
 	HUD:UpdateText(data, format(statFormat, enhancedStat and enhancedStat or baseStat, baseStat))
 end
@@ -128,15 +104,14 @@ end
 -- Speed
 function AddonTable.FunctionList.Speed(HUD, data, options, ...)
 
-	local currentSpeed, runSpeed, flightSpeed, swimSpeed = GetUnitSpeed("player")
+	local vehicleSpeed = GetUnitSpeed("vehicle") / 7 * 100
 	local fullSpeed = GetUnitSpeed("player") / 7 * 100
-	if fullSpeed == 0 or fullSpeed == 100 then
-		speedColor = ""
-	elseif fullSpeed < 100 then
-		speedColor = "|cffC41E3A"
-	elseif fullSpeed > 100 then
-		speedColor = "|cff00f26d"
-	end
+	
+	if fullSpeed == 0 and vehicleSpeed > 0 then fullSpeed = vehicleSpeed end
+	
+	if fullSpeed == 0 or fullSpeed == 100 then speedColor = ""
+	elseif fullSpeed < 100 then speedColor = "|cffC41E3A"
+	elseif fullSpeed > 100 then speedColor = "|cff00f26d" end
 	
 	HUD:UpdateText(data, speedColor .. string.format("%d%%", ("%.0f"):format(fullSpeed)))
 end

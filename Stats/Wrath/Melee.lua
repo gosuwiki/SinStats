@@ -370,7 +370,7 @@ function AddonTable.FunctionList.HasteMelee(HUD, data, options, ...)
 
 	local EB, percentStat, ratingStat = options.Percent_Rating
 	local statFormat = Haste_Format[EB]
-	local haste = GetMeleeHaste() -- GetHaste()
+	local haste = GetHaste()
 	local hasteRating = GetCombatRating(CR_HASTE_MELEE)
 	local hasteBonus = GetCombatRatingBonus(CR_HASTE_SPELL)
 	

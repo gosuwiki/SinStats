@@ -77,16 +77,14 @@ end
 function AddonTable.FunctionList.Speed(HUD, data, options, ...)
 
 	local speedColor = ""
+	local vehicleSpeed = GetUnitSpeed("vehicle") / 7 * 100
 	local fullSpeed = GetUnitSpeed("player") / 7 * 100
-	local targetSpeed = GetUnitSpeed("target") / 7 * 100
 	
-	if fullSpeed == 0 or fullSpeed == 100 then
-		speedColor = ""
-	elseif fullSpeed < 100 then
-		speedColor = "|cffC41E3A"
-	elseif fullSpeed > 100 then
-		speedColor = "|cff71FFC9"
-	end
+	if fullSpeed == 0 and vehicleSpeed > 0 then fullSpeed = vehicleSpeed end
+	
+	if fullSpeed == 0 or fullSpeed == 100 then speedColor = ""
+	elseif fullSpeed < 100 then speedColor = "|cffC41E3A"
+	elseif fullSpeed > 100 then speedColor = "|cff71FFC9" end
 
 	HUD:UpdateText(data, speedColor .. string.format("%d%%", ("%.0f"):format(fullSpeed)))
 end
